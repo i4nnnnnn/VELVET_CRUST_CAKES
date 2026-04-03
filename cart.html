@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order Summary | Velvet Crust</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root {
+            --dark-berry: #3a0d0d;
+            --cream: #fdf5e6;
+            --accent-red: #ff4757;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-pink: #ffb6c1;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--dark-berry);
+            background-attachment: fixed;
+            color: var(--cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .summary-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 650px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 { 
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 3px solid var(--accent-red); 
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 12px;
+            border-radius: 20px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .cart-item:hover {
+            border-color: var(--glass-border);
+            transform: scale(1.02);
+        }
+
+        .item-info h3 { margin: 0; font-size: 1.1rem; }
+        .item-info p { margin: 0; font-size: 0.9rem; opacity: 0.6; }
+
+        .remove-btn {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--accent-red);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .remove-btn:hover { background: var(--accent-red); color: white; }
+
+        .total-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 25px;
+            text-align: right;
+        }
+
+        .total-section h2 { margin: 0; font-size: 1.2rem; opacity: 0.8; }
+        .total-section .price { font-size: 2.5rem; font-weight: 900; color: var(--cream); }
+
+        /* --- CONTACT US KEMEROT SECTION --- */
+        .contact-kemerot {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 182, 193, 0.1);
+            border: 1px dashed var(--text-pink);
+            text-align: center;
+        }
+
+        .contact-kemerot p { margin: 0 0 10px 0; font-size: 0.9rem; color: var(--text-pink); }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .contact-link {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+        .contact-link:hover { opacity: 1; color: var(--accent-red); }
+
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 18px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 800;
+            text-decoration: none;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem;
+        }
+
+        .btn-clear { background: transparent; color: var(--cream); border: 1.5px solid var(--glass-border); }
+        .btn-checkout { background: var(--accent-red); color: white; box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3); }
+
+        .btn:hover { transform: translateY(-5px); }
+        .btn-checkout:hover { background: #ff6b81; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="summary-card">
+        <h1>🛒 Your Cart</h1>
+        
+        <div id="cart-list">
+            </div>
+
+        <div class="total-section">
+            <h2>Grand Total</h2>
+            <div class="price">₱<span id="grand-total">0</span></div>
+        </div>
+
+        <div class="contact-kemerot">
+            <p>Need to customize your order or change delivery details?</p>
+            <div class="contact-links">
+                <a href="tel:+63900000000" class="contact-link">📞 Call Us</a>
+                <a href="mailto:hello@velvetcrust.com" class="contact-link">✉️ Email Support</a>
+                <a href="contact.html" class="contact-link">📍 Visit Branch</a>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="home.html" class="btn btn-clear">Keep Shopping</a>
+            <button onclick="clearCart()" class="btn btn-clear">Empty Cart</button>
+            <button onclick="checkout()" class="btn btn-checkout">Confirm Order 🎂</button>
+        </div>
+    </div>
+
+    <script>
+        function loadSummary() {
+            const cart = JSON.parse(localStorage.getItem('velvetCart')) || [];
+            const list = document.getElementById('cart-list');
+            let total = 0;
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center; padding: 40px; opacity:0.5;">
+                        <p style="font-size: 1.2rem;">Your cart is empty!</p>
+                        <p>Our ovens are waiting for your choice.</p>
+                    </div>`;
+            } else {
+                list.innerHTML = "";
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    list.innerHTML += `
+                        <div class="cart-item animate__animated animate__fadeInUp" style="animation-delay: ${index * 0.1}s">
+                            <div class="item-info">
+                                <h3>${item.name}</h3>
+                                <p>Premium Artisan Cake</p>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:20px;">
+                                <span style="font-weight:bold; color:var(--accent-red);">₱${item.price}</span>
+                                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('grand-total').innerText = total;
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('velvetCart')) || [];
+            cart.splice(index, 1); // Delete only the selected item
+            localStorage.setItem('velvetCart', JSON.stringify(cart));
+            loadSummary(); // Refresh list
+        }
+
+        function clearCart() {
+            if(confirm("Are you sure you want to empty your delicious cart?")) {
+                localStorage.removeItem('velvetCart');
+                loadSummary();
+            }
+        }
+
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('velvetCart')) || [];
+            if(cart.length === 0) {
+                alert("Your cart is empty! Add some treats first.");
+                return;
+            }
+            alert("Order received! We're starting the oven in Valenzuela branch... 🎂");
+            localStorage.removeItem('velvetCart');
+            window.location.href = "home.html"; // Go back home after success
+        }
+
+        window.onload = loadSummary;
+    </script>
+</body>
+</html>
